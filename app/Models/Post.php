@@ -9,4 +9,5 @@ class Post extends Model
 {
     use HasFactory;
     public $timestamps = true;
+    protected $fillable = ['user_id', 'post', 'lat', 'lng', 'type', 'status'];
 }

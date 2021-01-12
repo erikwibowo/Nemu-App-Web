@@ -13,26 +13,26 @@ class UserController extends Controller
     public function index()
     {
         //get data from table posts
-        $users = User::latest()->get();
+        $userss = User::latest()->get();
 
         //make response JSON
         return response()->json([
             'success' => true,
             'message' => 'List Data User',
-            'data'    => $users
+            'data'    => $userss
         ], 200);
     }
 
     public function show($id)
     {
         //find post by ID
-        $user = User::findOrfail($id);
+        $users = User::findOrfail($id);
 
         //make response JSON
         return response()->json([
             'success' => true,
             'message' => 'Detail Data User',
-            'data'    => $user
+            'data'    => $users
         ], 200);
     }
 
@@ -41,7 +41,7 @@ class UserController extends Controller
         //set validation
         $validator = Validator::make($request->all(), [
             'name'      => 'required',
-            'email'     => 'required|unique:users|max:255',
+            'email'     => 'required|unique:userss|max:255',
             'password'  => 'required',
             'phone'     => 'required',
             'address'   => 'required'
@@ -53,7 +53,7 @@ class UserController extends Controller
         }
 
         //save to database
-        $user = User::create([
+        $users = User::create([
             'name'      => $request->name,
             'email'     => $request->email,
             'password'  => Hash::make($request->password),
@@ -62,12 +62,12 @@ class UserController extends Controller
         ]);
 
         //success save to database
-        if ($user) {
+        if ($users) {
 
             return response()->json([
                 'success' => true,
                 'message' => 'User Created',
-                'data'    => $user
+                'data'    => $users
             ], 201);
         }
 
@@ -78,7 +78,7 @@ class UserController extends Controller
         ], 409);
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $users)
     {
         //set validation
         $validator = Validator::make($request->all(), [
@@ -93,19 +93,19 @@ class UserController extends Controller
         }
 
         //find post by ID
-        $user = User::findOrFail($user->id);
+        $users = User::findOrFail($users->id);
 
-        if ($user) {
+        if ($users) {
 
             //update post
             if (empty($request->password)) {
-                $user->update([
+                $users->update([
                     'name'      => $request->name,
                     'phone'     => $request->phone,
                     'address'   => $request->address
                 ]);
             } else {
-                $user->update([
+                $users->update([
                     'name'      => $request->name,
                     'password'  => Hash::make($request->password),
                     'phone'     => $request->phone,
@@ -116,7 +116,7 @@ class UserController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'User Updated',
-                'data'    => $user
+                'data'    => $users
             ], 200);
         }
 
@@ -130,12 +130,12 @@ class UserController extends Controller
     public function destroy($id)
     {
         //find post by ID
-        $user = User::findOrfail($id);
+        $users = User::findOrfail($id);
 
-        if ($user) {
+        if ($users) {
 
             //delete post
-            $user->delete();
+            $users->delete();
 
             return response()->json([
                 'success' => true,
