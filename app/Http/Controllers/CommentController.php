@@ -18,7 +18,10 @@ class CommentController extends Controller
                     $btn = '<div class="btn-group"><button type="button" data-id="' . $row->id . '" class="btn btn-primary btn-xs btn-edit"><i class="fa fa-eye"></i></button><button type="button" data-id="' . $row->id . '" data-name="' . $row->comment . '" class="btn btn-danger btn-xs btn-delete"><i class="fa fa-trash"></i></button></div>';
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->addColumn('user', function ($row) {
+                    return $row->user->name;
+                })
+                ->rawColumns(['action', 'user'])
                 ->make(true);
         }
         $x['title'] = "Data Komentar | " . config('web-config.webname');

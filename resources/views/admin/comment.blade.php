@@ -73,8 +73,8 @@
                     name: 'admin_id'
                 },
                 {
-                    data: 'user_id',
-                    name: 'user_id'
+                    data: 'user',
+                    name: 'user'
                 },
                 {
                     data: 'post_id',

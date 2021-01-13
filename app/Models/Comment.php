@@ -10,4 +10,9 @@ class Comment extends Model
     use HasFactory;
     public $timestamps = true;
     protected $fillable = ['user_id', 'admin_id', 'post_id', 'comment', 'deleted', 'status'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
