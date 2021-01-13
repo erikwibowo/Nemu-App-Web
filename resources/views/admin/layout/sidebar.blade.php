@@ -85,8 +85,8 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item {{ Request::segment(2) == 'komentar' ? 'active':'' }}">
-                    <a href="">
+                <li class="nav-item {{ Request::segment(2) == 'comment' ? 'active':'' }}">
+                    <a href="{{ route('comment.index') }}">
                         <i class="fas fa-comment"></i>
                         <p>Komentar</p>
                         {{-- <span class="badge badge-count">5</span> --}}
