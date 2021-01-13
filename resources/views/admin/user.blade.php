@@ -27,7 +27,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="d-flex">
+                    <div>
                         <button class="btn btn-success btn-sm btn-round ml-auto" data-toggle="modal" data-target="#modal-tambah">
                             <i class="fa fa-plus"></i>
                             Add Row
@@ -46,6 +46,7 @@
                                     <th>Phone</th>
                                     <th>Address</th>
                                     <th>Status</th>
+                                    <th>V</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -91,6 +92,10 @@
                 {
                     data: 'status',
                     name: 'status'
+                },
+                {
+                    data: 'verified',
+                    name: 'verified'
                 },
                 {
                     data: 'action',

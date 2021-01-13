@@ -20,5 +20,12 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::resource('/user', UserController::class);
-Route::resource('/post', PostController::class);
+// Route::resource('/user', UserController::class);
+// Route::resource('/post', PostController::class);
+
+//User
+Route::post('user/auth', [Usercontroller::class, 'auth'])->name("api.user.auth");
+Route::get('user', [Usercontroller::class, 'index'])->name("api.user.index");
+Route::post('user/{id}', [Usercontroller::class, 'store'])->name("api.user.show");
+Route::put('user/{id}', [Usercontroller::class, 'update'])->name("api.user.update");
+Route::delete('user/{id}', [Usercontroller::class, 'delete'])->name("api.user.delete");

@@ -17,18 +17,26 @@ class UserController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = '<div class="btn-group"><button type="button" data-id="' . $row->id . '" class="btn btn-primary btn-sm btn-edit"><i class="fa fa-eye"></i></button><button type="button" data-id="' . $row->id . '" data-name="' . $row->name . '" class="btn btn-danger btn-sm btn-delete"><i class="fa fa-trash"></i></button></div>';
+                    $btn = '<div class="btn-group"><button type="button" data-id="' . $row->id . '" class="btn btn-primary btn-xs btn-edit"><i class="fa fa-eye"></i></button><button type="button" data-id="' . $row->id . '" data-name="' . $row->name . '" class="btn btn-danger btn-xs btn-delete"><i class="fa fa-trash"></i></button></div>';
                     return $btn;
                 })
                 ->addColumn('status', function ($row) {
                     if ($row->status == 0) {
-                        $status = '<span class="shadow-none badge outline-badge-danger">Nonaktif</span>';
+                        $status = '<span class="badge badge-danger">Nonaktif</span>';
                     } else {
-                        $status = '<span class="shadow-none badge outline-badge-primary">Aktif</span>';
+                        $status = '<span class="badge badge-success">Aktif</span>';
                     }
                     return $status;
                 })
-                ->rawColumns(['action', 'status'])
+                ->addColumn('verified', function ($row) {
+                    if ($row->verified == 0) {
+                        $verified = '<i class="fas fa-times"></i>';
+                    } else {
+                        $verified = '<i class="fas fa-check-circle"></i>';
+                    }
+                    return $verified;
+                })
+                ->rawColumns(['action', 'status', 'verified'])
                 ->make(true);
         }
         $x['title'] = "Data User | " . config('web-config.webname');

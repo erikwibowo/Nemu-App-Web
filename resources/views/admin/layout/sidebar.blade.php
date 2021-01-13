@@ -65,6 +65,55 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a data-toggle="collapse" href="#post">
+                        <i class="fas fa-file-alt"></i>
+                        <p>Post</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="post">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="sidebar-style-1.html') }}">
+                                    <span class="sub-item">Penemuan</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="overlay-sidebar.html') }}">
+                                    <span class="sub-item">Kehilangan</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item {{ Request::segment(2) == 'komentar' ? 'active':'' }}">
+                    <a href="">
+                        <i class="fas fa-comment"></i>
+                        <p>Komentar</p>
+                        {{-- <span class="badge badge-count">5</span> --}}
+                    </a>
+                </li>
+                <li class="nav-item {{ Request::segment(2) == 'pemberitahuan' ? 'active':'' }}">
+                    <a href="">
+                        <i class="fas fa-bell"></i>
+                        <p>Pemberitahuan</p>
+                        {{-- <span class="badge badge-count">5</span> --}}
+                    </a>
+                </li>
+                <li class="nav-item {{ Request::segment(2) == 'pembaruan' ? 'active':'' }}">
+                    <a href="">
+                        <i class="fas fa-redo-alt"></i>
+                        <p>Pembaruan</p>
+                        {{-- <span class="badge badge-count">5</span> --}}
+                    </a>
+                </li>
+                <li class="nav-item {{ Request::segment(2) == 'pengaturan' ? 'active':'' }}">
+                    <a href="">
+                        <i class="fas fa-cog"></i>
+                        <p>Pengaturan</p>
+                        {{-- <span class="badge badge-count">5</span> --}}
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a data-toggle="collapse" href="#sidebarLayouts">
                         <i class="fas fa-th-list"></i>
                         <p>Sidebar Layouts</p>

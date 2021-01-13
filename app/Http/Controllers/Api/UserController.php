@@ -146,7 +146,55 @@ class UserController extends Controller
         //data post not found
         return response()->json([
             'success' => false,
-            'message' => 'Post Not Found',
+            'message' => 'User Not Found',
         ], 404);
+    }
+
+    public function auth(Request $request)
+    {
+        //set validation
+        $validator = Validator::make($request->all(), [
+            'email'      => 'required',
+            'password'     => 'required'
+        ]);
+
+        //response error validation
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        //find post by ID
+        $users = User::where(['email' => $request->email]);
+        if ($users->count() == 0) {
+            return response()->json([
+                'success'   => true,
+                'code'      => 0,
+                'message'   => 'Email or password not match',
+            ], 200);
+        } else {
+            $data = $users->first();
+            if ($data->status == 0) {
+                return response()->json([
+                    'success'   => true,
+                    'code'      => 2,
+                    'message'   => 'Your account has been blocked'
+                ], 200);
+            } else {
+                if (Hash::check($request->password, $data->password)) {
+                    return response()->json([
+                        'success'   => true,
+                        'code'      => 1,
+                        'message'   => 'Success',
+                        'data'      => $data
+                    ], 200);
+                } else {
+                    return response()->json([
+                        'success'   => true,
+                        'code'      => 0,
+                        'message'   => 'Email or password not match',
+                    ], 200);
+                }
+            }
+        }
     }
 }
