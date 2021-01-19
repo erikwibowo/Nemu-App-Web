@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
 
@@ -42,6 +43,10 @@ Route::group(['prefix' => 'admin',  'middleware' => 'adminauth'], function () {
     Route::put('user/update', [UserController::class, 'update'])->name('user.update');
     Route::delete('user/delete', [UserController::class, 'delete'])->name('user.delete');
     Route::post('user/data', [UserController::class, 'data'])->name('user.data');
+    //Post
+    Route::get('post/penemuan', [PostController::class, 'penemuan'])->name('post.penemuan');
+    Route::get('post/kehilangan', [PostController::class, 'kehilangan'])->name('post.kehilangan');
+    Route::get('post/dihapus', [PostController::class, 'dihapus'])->name('post.dihapus');
     //Comment
     Route::get('comment', [CommentController::class, 'index'])->name('comment.index');
     Route::post('comment/create', [CommentController::class, 'create'])->name('comment.create');

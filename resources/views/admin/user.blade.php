@@ -39,7 +39,6 @@
                         <table class="table table-bordered table-striped datatable yajra-datatable">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>NIK</th>
                                     <th>Name</th>
                                     <th>Email</th>
@@ -65,10 +64,7 @@
             processing: true,
             serverSide: true,
             ajax: "{{ route('user.index') }}",
-            columns: [{
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex'
-                },
+            columns: [
                 {
                     data: 'nik',
                     name: 'nik'

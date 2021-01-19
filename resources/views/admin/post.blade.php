@@ -2,7 +2,7 @@
 @section('content')
 <div class="page-inner">
     <div class="page-header">
-        <h4 class="page-title">Data Admin</h4>
+        <h4 class="page-title">{{ $subtitle }}</h4>
         <ul class="breadcrumbs">
             <li class="nav-home">
                 <a href="{{ route('admin.dashboard') }}">
@@ -13,13 +13,13 @@
                 <i class="flaticon-right-arrow"></i>
             </li>
             <li class="nav-item">
-                <a href="#">Data</a>
+                <a href="#">Post</a>
             </li>
             <li class="separator">
                 <i class="flaticon-right-arrow"></i>
             </li>
             <li class="nav-item">
-                <a href="#">Data Admin</a>
+                <a href="#">{{ $subtitle }}</a>
             </li>
         </ul>
     </div>
@@ -40,10 +40,10 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Level</th>
+                                    <th>Post</th>
+                                    <th>Type</th>
                                     <th>Status</th>
-                                    <th>Login</th>
+                                    <th>Created</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -61,27 +61,27 @@
         var table = $('.yajra-datatable').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('admin.index') }}",
+            ajax: "{{ $url }}",
             columns: [
                 {
-                    data: 'name',
-                    name: 'name'
+                    data: 'user',
+                    name: 'user'
                 },
                 {
-                    data: 'email',
-                    name: 'email'
+                    data: 'post_word',
+                    name: 'post_word'
                 },
                 {
-                    data: 'level',
-                    name: 'level'
+                    data: 'type',
+                    name: 'type'
                 },
                 {
                     data: 'status',
                     name: 'status'
                 },
                 {
-                    data: 'login_at',
-                    name: 'login_at'
+                    data: 'created_at',
+                    name: 'created_at'
                 },
                 {
                     data: 'action',
@@ -101,7 +101,7 @@
                 keyboard: false
             });
             $.ajax({
-                url: "{{ route('admin.data') }}",
+                url: "{{ route('user.data') }}",
                 type: "POST",
                 dataType: "JSON",
                 data: {
@@ -109,10 +109,13 @@
                     _token: "{{ csrf_token() }}"
                 },
                 success: function(data) {
+                    $("#nik").val(data.nik);
                     $("#name").val(data.name);
                     $("#email").val(data.email);
+                    $("#phone").val(data.phone);
+                    $("#address").val(data.address);
                     $("#status").val(data.status);
-                    $("#level").val(data.level);
+                    $("#verified").val(data.verified);
                     $("#id").val(data.id);
                 },
             });
@@ -139,8 +142,15 @@
                 <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
             </div>
             <div class="modal-body">
-                <form action="{{ route('admin.create') }}" method="POST">
+                <form action="{{ route('user.create') }}" method="POST">
                     @csrf
+                    <div class="form-group form-floating-label">
+                        <input type="text" name="nik" maxlength="16" class="form-control input-border-bottom @error('nik') is-invalid @enderror" value="{{ old('nik') }}" required>
+                        <label class="placeholder">NIK</label>
+                        @error('nik')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
                     <div class="form-group form-floating-label">
                         <input type="text" name="name" class="form-control input-border-bottom @error('name') is-invalid @enderror" value="{{ old('name') }}" required>
                         <label class="placeholder">Name</label>
@@ -156,15 +166,22 @@
                         @enderror
                     </div>
                     <div class="form-group form-floating-label">
-                        <input type="password" name="password" class="form-control input-border-bottom" required>
-                        <label class="placeholder">Password</label>
+                        <input type="text" name="phone" class="form-control input-border-bottom @error('phone') is-invalid @enderror" value="{{ old('phone') }}" required>
+                        <label class="placeholder">Phone</label>
+                        @error('phone')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group form-floating-label">
-                        <select class="form-control input-border-bottom" id="selectFloatingLabel" required name="level">
-                            <option value="ADMIN">ADMIN</option>
-                            <option value="SUPER ADMIN">SUPER ADMIN</option>
-                        </select>
-                        <label for="selectFloatingLabel" class="placeholder">Level</label>
+                        <textarea name="address" class="form-control input-border-bottom @error('address') is-invalid @enderror" value="{{ old('address') }}" required></textarea>
+                        <label class="placeholder">Address</label>
+                        @error('address')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="form-group form-floating-label">
+                        <input type="password" name="password" class="form-control input-border-bottom" required>
+                        <label class="placeholder">Password</label>
                     </div>
             </div>
             <div class="modal-footer">
@@ -183,9 +200,16 @@
                 <h5 class="modal-title" id="exampleModalLabel">Edit Data</h5>
             </div>
             <div class="modal-body">
-                <form action="{{ route('admin.update') }}" method="POST">
+                <form action="{{ route('user.update') }}" method="POST">
                     @csrf
                     @method('PUT')
+                    <div class="form-group form-floating-label">
+                        <input type="text" name="nik" id="nik" maxlength="16" class="form-control input-border-bottom @error('nik') is-invalid @enderror" value="{{ old('nik') }}" required>
+                        <label class="placeholder">NIK</label>
+                        @error('nik')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
                     <div class="form-group form-floating-label">
                         <input type="text" name="name" id="name" class="form-control input-border-bottom @error('name') is-invalid @enderror" value="{{ old('name') }}" required>
                         <label class="placeholder">Name</label>
@@ -201,17 +225,24 @@
                         @enderror
                     </div>
                     <div class="form-group form-floating-label">
-                        <input type="password" name="password" class="form-control input-border-bottom">
-                        <label class="placeholder">Password</label>
-                        <input type="hidden" id="id" name="id">
-                        <small id="passwordHelpBlock" class="form-text text-muted">Ketikkan password baru jika ingin mengganti password</small>
+                        <input type="text" name="phone" id="phone" class="form-control input-border-bottom @error('phone') is-invalid @enderror" value="{{ old('phone') }}" required>
+                        <label class="placeholder">Phone</label>
+                        @error('phone')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group form-floating-label">
-                        <select class="form-control input-border-bottom" id="level" required name="level">
-                            <option value="ADMIN">ADMIN</option>
-                            <option value="SUPER ADMIN">SUPER ADMIN</option>
-                        </select>
-                        <label for="level" class="placeholder">Level</label>
+                        <textarea name="address" id="address" class="form-control input-border-bottom @error('address') is-invalid @enderror" value="{{ old('address') }}" required></textarea>
+                        <label class="placeholder">Address</label>
+                        @error('address')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="form-group form-floating-label">
+                        <input type="password" name="password" class="form-control input-border-bottom">
+                        <label class="placeholder">Password</label>
+                        <input type="hidden" name="id" id="id">
+                        <small id="passwordHelpBlock" class="form-text text-muted">Ketikkan password baru jika ingin mengganti password</small>
                     </div>
                     <div class="form-group form-floating-label">
                         <select class="form-control input-border-bottom" id="status" required name="status">
@@ -219,6 +250,13 @@
                             <option value="0">Non Aktif</option>
                         </select>
                         <label for="level" class="placeholder">Status</label>
+                    </div>
+                    <div class="form-group form-floating-label">
+                        <select class="form-control input-border-bottom" id="verified" required name="verified">
+                            <option value="1">Verified</option>
+                            <option value="0">Non Verified</option>
+                        </select>
+                        <label for="level" class="placeholder">Verified</label>
                     </div>
             </div>
             <div class="modal-footer">
@@ -237,7 +275,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
             </div>
             <div class="modal-body">
-                <form action="{{ route('admin.delete') }}" method="POST">
+                <form action="{{ route('user.delete') }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <p class="modal-text">Apakah anda yakin akan menghapus? <b id="delete-data"></b></p>

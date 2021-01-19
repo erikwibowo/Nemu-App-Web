@@ -15,7 +15,7 @@ class CreateNotificationTokensTable extends Migration
     {
         Schema::create('notification_tokens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained('users');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('token');
             $table->timestamps();
         });

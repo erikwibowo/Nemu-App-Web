@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
 
-        foreach (range(1, 100) as $index) {
+        foreach (range(1, 1000) as $index) {
             $email = $faker->unique()->email;
             User::insert([
                 'nik' => $faker->unique()->randomNumber(8),

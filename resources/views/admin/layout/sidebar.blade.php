@@ -64,22 +64,27 @@
                         {{-- <span class="badge badge-count">5</span> --}}
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Request::segment(2) == 'post' ? 'active submenu':'' }}">
                     <a data-toggle="collapse" href="#post">
                         <i class="fas fa-file-alt"></i>
                         <p>Post</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse" id="post">
+                    <div class="collapse {{ Request::segment(2) == 'post' ? 'show':'' }}" id="post">
                         <ul class="nav nav-collapse">
-                            <li>
-                                <a href="sidebar-style-1.html') }}">
+                            <li class="{{ Request::segment(3) == 'penemuan' ? 'active':'' }}">
+                                <a href="{{ route('post.penemuan') }}">
                                     <span class="sub-item">Penemuan</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="overlay-sidebar.html') }}">
+                            <li class="{{ Request::segment(3) == 'kehilangan' ? 'active':'' }}">
+                                <a href="{{ route('post.kehilangan') }}">
                                     <span class="sub-item">Kehilangan</span>
+                                </a>
+                            </li>
+                            <li class="{{ Request::segment(3) == 'dihapus' ? 'active':'' }}">
+                                <a href="{{ route('post.dihapus') }}">
+                                    <span class="sub-item">Dihapus</span>
                                 </a>
                             </li>
                         </ul>
