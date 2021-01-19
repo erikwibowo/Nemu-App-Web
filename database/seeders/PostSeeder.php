@@ -23,6 +23,7 @@ class PostSeeder extends Seeder
             Post::insert([
                 'user_id' => rand(1, 1000),
                 'post' => $faker->paragraph(rand(3, 10), true),
+                'image' => $faker->imageUrl(640, 480, 'cats'),
                 'lat' => $faker->latitude(-90, 90),
                 'lng' => $faker->longitude(-180, 180),
                 'type' => $type[rand(0, 1)],
